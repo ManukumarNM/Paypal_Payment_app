@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<body>
+<section class="section-content padding-y bg">
+<div class="container">
+<!-- ============================ COMPONENT 2 ================================= -->
+<div class="row">
+<main class="col-md-6">
+
+<article class="card mb-4">
+<div class="card-body">
+	<h4 class="card-title mb-4">Cart Items</h4>
+	<div class="row">
+		<div class="col-md-6">
+			<figure class="itemside  mb-4">
+				<div class="aside"><img src="{% static './images/items/1.jpg' %}" class="border img-sm"></div>
+				<figcaption class="info">
+					<p>Apple Watch </p>
+					<span class="text-muted">1x = $100 </span>
+				</figcaption>
+			</figure>
+		</div> <!-- col.// -->
+		<div class="col-md-6">
+			<figure class="itemside  mb-4">
+				<div class="aside"><img src="{% static './images/items/2.jpg' %}" class="border img-sm"></div>
+				<figcaption class="info">
+					<p>Apple Headphone </p>
+					<span class="text-muted">x = $100 </span>
+				</figcaption>
+			</figure>
+		</div> <!-- col.// -->
+	</div> <!-- row.// -->
+</div> <!-- card-body.// -->
+</article> <!-- card.// -->
+
+
+<article class="card mb-3">
+<div class="card-body">
+	<h4 class="card-title mb-4">Delivery info</h4>
+	<form action="">
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label>First name</label>
+				<p class="form-control"> Manukumar</p>
+			</div>
+			<div class="form-group col-sm-6">
+				<label>Last name</label>
+				<p class="form-control"> N M</p>
+			</div>
+			<div class="form-group col-sm-6">
+				<label>Phone</label>
+				<p class="form-control"> 9999991023</p>
+			</div>
+			<div class="form-group col-sm-6">
+				<label>House No.</label>
+				<p class="form-control"> #2</p>
+			</div>
+            <div class="form-group col-sm-6">
+				<label>Street</label>
+				<p class="form-control">5th cross, Bhavani Nagar</p>
+			</div>
+            <div class="form-group col-sm-6">
+				<label>City</label>
+				<p class="form-control">Bangalore</p>
+			</div>
+            <div class="form-group col-sm-6">
+				<label>Pincode</label>
+				<p class="form-control"> 560029</p>
+			</div>
+            <div class="form-group col-sm-6">
+				<label>State</label>
+				<p class="form-control"> Karnataka</p>
+			</div>
+            <div class="form-group col-sm-6">
+				<label>Country</label>
+				<p class="form-control"> India</p>
+			</div>
+            <div class="form-group col-sm-6">
+				<label>Landmark</label>
+				<p class="form-control"> St.Thomas Church</p>
+			</div>
+		</div> <!-- row.// -->	
+	</form>
+</div> <!-- card-body.// -->
+</article> <!-- card.// -->
+</main> <!-- col.// -->
+
+		<aside class="col-md-6">
+			<div class="card">
+		<div class="card-body">
+			<dl class="dlist-align">
+			  <dt>Total price:</dt>
+			  <dd class="text-right">$250.00</dd>
+			</dl>
+			<dl class="dlist-align">
+			  <dt>Tax:</dt>
+			  <dd class="text-right"> $10.00</dd>
+			</dl>
+			<dl class="dlist-align">
+			  <dt>Total:</dt>
+			  <dd class="text-right text-dark b"><strong>$260.00</strong></dd>
+			</dl>
+			<hr>
+			<p class="text-center mb-3">
+				<img src="{% static './images/misc/payments.png' %}" height="26">
+			</p>
+			<div id="paypal-button-container"></div>  
+			
+		</div> <!-- card-body.// -->
+		</div> <!-- card.// -->
+		</aside> <!-- col.// -->
+	</div> <!-- row.// -->
+</div> <!-- container .//  -->
+</section>
+</body>
+</html>
+
+
+<!-- Paypal Payment -->
+<!-- Set up a container element for the button -->
+
+<script>
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+        style: {
+                color:  'blue',
+                shape:  'pill',
+                label:  'pay',
+                height: 40
+            },
+        // Set up the transaction
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '260'
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(orderData) {
+                // Successful capture! For demo purposes:
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                var transaction = orderData.purchase_units[0].payments.captures[0];
+                alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+                // Replace the above to show a success message within this page, e.g.
+                const element = document.getElementById('paypal-button-container');
+                element.innerHTML = '';
+                element.innerHTML = '<h3 class="text-success">Thank you for your payment!</h3>';
+                // Or go to another URL:  actions.redirect('thank_you.html');
+            });
+        }
+
+
+    }).render('#paypal-button-container');
+</script>
+{% endblock %}
