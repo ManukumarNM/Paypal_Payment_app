@@ -1,5 +1,5 @@
-## Paypal_Payment_app
-# It's a PayPal payment gateway for E-commerce transactions built on Python-Django.
+# Paypal_Payment_app
+## It's a PayPal payment gateway for E-commerce transactions built on Python-Django.
 
 ```
 Download or Fork the repository on your local machine and Intsall the requrements.txt file.
