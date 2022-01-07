@@ -1,6 +1,7 @@
 ## Paypal_Payment_app
-#It's a PayPal payment gateway for E-commerce transactions built on Python-Django.
+# It's a PayPal payment gateway for E-commerce transactions built on Python-Django.
 
+```
 Download or Fork the repository on your local machine and Intsall the requrements.txt file.
 
 Before running the project on your local server: You must add the SECRET_KEY to settings.py file.
@@ -14,5 +15,5 @@ Go through that doc carefully and create all the necessary accounts to run this 
 
 If you have any doubts please send a message to me and reach out me at anytime.
 Thank you.
-
+```
 
